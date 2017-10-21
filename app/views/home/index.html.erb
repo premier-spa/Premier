@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://fonts.googleapis.com/earlyaccess/mplus1p.css" rel="stylesheet" />
+  <title>PremierLeagueTable</title>
+</head>
+
+<style>
+  body {
+    font-family: "Mplus 1p";
+    font-weight: 100;
+  }
+</style>
+
+<body>
+
+        <tr id="mainCategoriesd" height="30">
+          <th width="40" align="center" colspan="4" class="blank"></th>
+          <th width="40" align="center" colspan="4" bgcolor="#b22222">試合</th>
+          <th width="40" align="center" colspan="3" bgcolor="#b22222">ホーム</th>
+          <th width="40" align="center" colspan="3" bgcolor="#b22222">アウェー</th>
+          <th width="40" align="center" colspan="2" bgcolor="#b22222">得失点</th>
+        </tr>
+  <div id="teamStandingsWrapper">
+    <table class="teamStandings">
+      <th width="40" align="center" ead>
+        <tr id="mainCategories" style="color:#ffffff;" height="30">
+          <th width="40" align="center" colspan="4" class="blank"></th>
+          <th align="center" colspan="4" bgcolor="#b22222">93試合</th>
+          <th width="40" align="center" colspan="3" bgcolor="#b22222">ホーム</th>
+          <th width="40" align="center" colspan="3" bgcolor="#b22222">アウェー</th>
+          <th width="40" align="center" colspan="2" bgcolor="#b22222">得失点</th>
+        </tr>
+
+        <tr id="secondaryCategories" style="font-size: 100%; color: #ffffff;" height="25">
+          <th width="40" align="center" colspan="3" class="blank">&nbsp;</th>
+          <th width="40" align="center" class="divider" width="40" align="center" bgcolor="#b22222">点</th>
+          <th width="40" align="center" bgcolor="#b22222">試</th>
+          <th width="40" align="center" bgcolor="#b22222">勝</th>
+          <th width="40" align="center" bgcolor="#b22222">分</th>
+          <th width="40" align="center" class="divider" width="40" align="center" bgcolor="#b22222">敗</th>
+          <th width="40" align="center" bgcolor="#b22222">勝</th>
+          <th width="40" align="center" bgcolor="#b22222">分</th>
+          <th width="40" align="center" class="divider" width="40" align="center" bgcolor="#b22222">敗</th>
+          <th width="40" align="center" bgcolor="#b22222">勝</th>
+          <th width="40" align="center" bgcolor="#b22222">分</th>
+          <th width="40" align="center" class="divider" width="40" align="center" bgcolor="#b22222">敗</th>
+          <th width="40" align="center" bgcolor="#b22222">得</th>
+          <th width="40" align="center" bgcolor="#b22222">失</th>
+        </tr>
+        </thead>
+
+        <tbody id="rankTable" style="font-size: 80%;">
+        </tbody>
+    </table>
+    <br/>
+  </div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+  <script>
+    $(function () {
+
+      $.get("http://api.football-api.com/2.0/standings/1204?Authorization=565ec012251f932ea4000001fa542ae9d994470e73fdb314a8a56d76", function (data) {
+        console.log(data);
+        //$("#res").html(JSON.stringify(data));
+        for (let i = 0; i < 20; i++) {
+          if (i % 2 == 0) {
+            tcolor = "rowOne bgcolor='#ffffff'"
+          }
+          else {
+            tcolor = "rowTwo bgcolor='#e3f0fb'"
+          }
+          $("#rankTable").append("<tr class=" + tcolor + ">" +
+            "<td align='center' width='40' align='center' align='center'>" + data[i].position + "</td>" +
+            "<td align='center' class='teamLogo' width='30'align='center'><a href=''><img src='Emblem/" + data[i].team_name + ".png' width='20' height='20' /></a></td>" +
+            "<td class='fcName' width='250' height='35' width='250' height='35' height='35'><a href='/jp/teams/england/96/%E3%83%81%E3%82%A7%E3%83%AB%E3%82%B7%E3%83%BC'>" + data[i].team_name + "</a></td>" +
+            "<td align='center' class='standingPoints divider' width='40' align='center' width='40' align='center'>" + data[i].points + "</td>" +
+            "<td align='center' class='standingPoints divider' width='40' align='center' width='40' align='center'>" + data[i].overall_gp + "</td>" +
+            "<td align='center' class='standingPoints divider' width='40' align='center' width='40' align='center'>" + data[i].overall_w + "</td>" +
+            "<td align='center' class='standingPoints divider' width='40' align='center' width='40' align='center'>" + data[i].overall_d + "</td>" +
+            "<td align='center' class='standingPoints divider' width='40' align='center' width='40' align='center'>" + data[i].overall_l + "</td>" +
+            "<td align='center' class='standingPoints divider' width='40' align='center' width='40' align='center'>" + data[i].home_w + "</td>" +
+            "<td align='center' class='standingPoints divider' width='40' align='center' width='40' align='center'>" + data[i].home_d + "</td>" +
+            "<td align='center' class='standingPoints divider' width='40' align='center' width='40' align='center'>" + data[i].home_l + "</td>" +
+            "<td align='center' class='standingPoints divider' width='40' align='center' width='40' align='center'>" + data[i].away_w + "</td>" +
+            "<td align='center' class='standingPoints divider' width='40' align='center' width='40' align='center'>" + data[i].away_d + "</td>" +
+            "<td align='center' class='standingPoints divider' width='40' align='center' width='40' align='center'>" + data[i].away_l + "</td>" +
+            "<td align='center' class='standingPoints divider' width='40' align='center' width='40' align='center'>" + data[i].overall_gs + "</td>" +
+            "<td align='center' class='standingPoints divider' width='40' align='center' width='40' align='center'>" + data[i].overall_ga + "</td>" +
+            "</tr>");
+        }
+        $("#res").html(JSON.stringify(data[1].team_name + data[1].points));
+      });
+
+
+    });
+
+  </script>
+</body>
+
+</html>
